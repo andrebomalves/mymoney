@@ -26,7 +26,7 @@ const Init = (url) =>{
               console.log(res)
               dispatch({type:'SUCCESS', data:res.data})
             }) 
-        }, []);
+        });
       
         return data
     }
@@ -55,7 +55,7 @@ const Init = (url) =>{
         return data
       } 
 
-      return [useGet, usePost, useDelete]
+      return  [useGet, usePost, useDelete]
 }
 
 export default Init

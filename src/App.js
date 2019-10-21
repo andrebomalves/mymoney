@@ -1,6 +1,5 @@
 import React from 'react'
-import useGet from './useGet'
-import usePost from './usePost'
+import Rest from './useRest'
 import './App.css'
 
 //#region Exemplo de Promise e Assync Await
@@ -19,7 +18,7 @@ const func = async() => {
 */
 //#endregion
 
-const url = 'https://mymoney-andre.firebaseio.com/periodos/2019-08.json'
+const url = 'https://mymoney-andre.firebaseio.com/'
 
 function App() {
   //#region Funções assincronas para teste
@@ -38,9 +37,10 @@ function App() {
   });
 */
 //#endregion
+  const [useGet,usePost,useDelete] = Rest(url)
 
-  const data = useGet(url)
-  const [dataPost, post] = usePost(url)
+  const data = useGet('periodos/2019-08')
+  const [dataPost, post] = usePost('periodos/2019-08')
 
   const postNew = () =>{
     post({descricao:'comida', valor:60.00})
