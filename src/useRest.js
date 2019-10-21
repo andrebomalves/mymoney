@@ -12,6 +12,7 @@ const reducer = (state, action) => {
     }
   }
 
+
 const Init = (url) =>{
 
     const [data, dispatch] = useReducer(reducer,{loading:true, data:{}})
@@ -54,6 +55,7 @@ const Init = (url) =>{
         return data
       } 
 
+      return [useGet, usePost, useDelete]
 }
 
 export default Init
