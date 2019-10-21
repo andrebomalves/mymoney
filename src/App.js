@@ -37,7 +37,7 @@ function App() {
   });
 */
 //#endregion
-  const [useGet,usePost,useDelete] = Rest(url)
+  const { useGet, usePost } = Rest(url)
 
   const data = useGet('periodos/2019-08')
   const [dataPost, post] = usePost('periodos/2019-08')
