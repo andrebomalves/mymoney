@@ -18,7 +18,7 @@ const reducer = (state, action) => {
     const [data, dispatch] = useReducer(reducer,{loading:true, data:{}});
   
       dispatch({type:'REQUEST'})
-      axios.delete(url,)
+      axios.delete(url)
         .then((res) => {
           console.log(res)
           dispatch({type:'SUCCESS', data:res.data})
