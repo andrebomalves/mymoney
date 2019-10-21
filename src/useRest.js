@@ -26,7 +26,7 @@ const Init = (url) =>{
               console.log(res)
               dispatch({type:'SUCCESS', data:res.data})
             }) 
-        });
+        },[]);
       
         return data
     }
