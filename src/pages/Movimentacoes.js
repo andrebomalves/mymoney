@@ -7,12 +7,22 @@ const { useGet } = Rest(url)
 function Movimentacoes(props) {
 
   const data = useGet(`movimentacoes/${props.match.params.data}`)
- 
+
   if (data.loading) {
     return <span>Carregando...</span>
   }
 
-  if ( data.data && Object.keys(data.data).length > 0) {
+  if (!data.data) {
+    return (
+      <div className='container'>
+      <h1>Movimentações</h1>
+      <br />
+        <div className='alert alert-info'> Não há dados para serem exibidos</div>
+      </div>
+    )
+  }
+
+  if (data.data && Object.keys(data.data).length > 0) {
     return (
       <div className='container'>
         <h1>Movimentações</h1>
