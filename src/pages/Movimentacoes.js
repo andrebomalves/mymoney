@@ -4,12 +4,14 @@ import Rest from '../utils/useRest'
 const url = 'https://mymoney-andre.firebaseio.com/'
 const { useGet } = Rest(url)
 
+//TODO: converter as funções do useRest de promesi para async e usar wait dentro das funções
+// Desta forma a gente pode retornar o resultado (res) para fora da função ou chamar um refetch
 function Movimentacoes(props) {
 
   const data = useGet(`movimentacoes/${props.match.params.data}`)
 
   if (data.loading) {
-    return <span>Carregando...</span>
+    return <div className='d-flex justify-content-center'><span>Carregando...</span></div>
   }
 
   if (!data.data) {
