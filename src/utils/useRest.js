@@ -18,29 +18,26 @@ const Init = (url) => {
   const useGet = (resource) => {
 
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
-
-    useEffect(() => {
+    const carregar = async() => {
       dispatch({ type: 'REQUEST' })
-      axios.get(url + resource + '.json')
-        .then((res) => {
-          console.log(res)
-          dispatch({ type: 'SUCCESS', data: res.data })
-        })
-    }, []);
+      const res = await axios.get(url + resource + '.json')
+      dispatch({ type: 'SUCCESS', data: res.data })
+    }
+    useEffect(() => {
+      carregar()
+    }, [resource]);
 
-    return data
+    return {...data, refetch: carregar}
   }
 
   const usePost = (resource) => {
 
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
 
-    const post = data => {
+    const post = async(data) => {
       dispatch({ type: 'REQUESTS' })
-      axios.post(url + resource + '.json', data)
-        .then((res) => {
-          dispatch({ type: 'SUCCESS', data: res.data })
-        })
+      const res = await axios.post(url + resource + '.json', data)
+      dispatch({ type: 'SUCCESS', data: res.data })
     }
     return [data, post]
   }
@@ -48,13 +45,11 @@ const Init = (url) => {
   const useDelete = () => {
 
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
-    const remove = (resource) => {
+    const remove = async(resource) => {
       dispatch({ type: 'REQUEST' })
-      axios.delete(url + resource + '.json')
-        .then((res) => {
-          console.log(res)
-          dispatch({ type: 'SUCCESS', data: res.data })
-        })
+      const res = await axios.delete(url + resource + '.json')
+      console.log('useDelete:',res)
+      dispatch({ type: 'SUCCESS', data: res.data })
     }
     return [data,remove]
   }
