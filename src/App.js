@@ -7,7 +7,7 @@ import Movimentacoes from './pages/Movimentacoes'
 function App() {
 
   return (
-    <Router>
+    <Router basename='/mymoney'>
     <div>
       <Header />
       <Route path='/' exact component={Home} />
