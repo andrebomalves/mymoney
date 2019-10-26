@@ -43,7 +43,7 @@ function Movimentacoes(props) {
   return (
     <div className='container'>
       <h1>Movimentações</h1>
-      <table className='table table-striped'>
+      <table className='table table-sm table-striped'>
         <thead>
           <tr>
             <th>Descrição</th>
@@ -51,7 +51,7 @@ function Movimentacoes(props) {
             <th>Ações</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='align-middle'>
           {!data.data &&
             <tr>
               <td colSpan='3' className='text-center'>
@@ -66,8 +66,8 @@ function Movimentacoes(props) {
 
                 return (
                   <tr key={mov}>
-                    <td>{data.data[mov].descricao}</td>
-                    <td>{data.data[mov].valor}</td>
+                    <td className='align-middle' >{data.data[mov].descricao}</td>
+                    <td className='align-middle' >{data.data[mov].valor}</td>
                     <td className=''>
                       <button type="button" className="btn btn-sm btn-outline-dark" onClick={() => removeItem(mov)}><i className="fas fa-trash-alt"></i> </button>
                     </td>
