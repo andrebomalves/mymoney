@@ -48,13 +48,23 @@ const Init = (url) => {
     const remove = async(resource) => {
       dispatch({ type: 'REQUEST' })
       const res = await axios.delete(url + resource + '.json')
-      console.log('useDelete:',res)
       dispatch({ type: 'SUCCESS', data: res.data })
     }
     return [data,remove]
   }
 
-  return { useGet, usePost, useDelete }
+  const usePatch = () => {
+
+    const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
+    const patch = async(resource, data) => {
+      dispatch({ type: 'REQUEST' })
+      const res = await axios.patch(url + resource + '.json',data)
+      dispatch({ type: 'SUCCESS', data: res.data })
+    }
+    return [data,patch]
+  }
+
+  return { useGet, usePost, useDelete, usePatch}
 }
 
 export default Init

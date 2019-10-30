@@ -28,7 +28,6 @@ function Meses() {
             Object
               .keys(data.data)
               .map((mes) => {
-                console.log(mes)
                 return (
                   <tr key={mes}>
                     <td><Link tag='a' to={'/movimentacoes/'+mes}>{mes}</Link></td>
