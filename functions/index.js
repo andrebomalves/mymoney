@@ -35,16 +35,16 @@ exports.soma = functions.database.ref('/movimentacoes/{dia}')
     return mesRef.transaction(current => {
       if(current === null)
         return{
-          entrada: entradas,
-          saida: saidas,
+          entrada: parseFloat(entradas),
+          saida: parseFloat(saidas),
           previsao_entrada : 0,
           previsao_saida: 0
         }
 
         return {
           ...current,
-          entrada: entradas,
-          saida: saidas
+          entrada: parseFloat(entradas),
+          saida: parseFloat(saidas)
         }
     })
 
