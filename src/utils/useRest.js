@@ -15,12 +15,12 @@ const reducer = (state, action) => {
 
 const Init = (url) => {
 
-  const useGet = (resource) => {
+  const useGet = (resource, sufix = '.json') => {
 
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
     const carregar = async() => {
       dispatch({ type: 'REQUEST' })
-      const res = await axios.get(url + resource + '.json')
+      const res = await axios.get(url + resource +  sufix)
       dispatch({ type: 'SUCCESS', data: res.data })
     }
     useEffect(() => {
@@ -30,14 +30,15 @@ const Init = (url) => {
     return {...data, refetch: carregar}
   }
 
-  const usePost = (resource) => {
+  const usePost = (resource, sufix = '.json') => {
 
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
 
     const post = async(data) => {
       dispatch({ type: 'REQUESTS' })
-      const res = await axios.post(url + resource + '.json', data)
+      const res = await axios.post(url + resource + sufix, data)
       dispatch({ type: 'SUCCESS', data: res.data })
+      return res.data
     }
     return [data, post]
   }
