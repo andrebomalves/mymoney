@@ -2,7 +2,6 @@
   "name": "mymoney02",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://andrebomalves.github.io/mymoney",
   "dependencies": {
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
