@@ -16,9 +16,10 @@ function Login() {
   }, [dataPost]);
   
   const login = async () => {
+    
     await singin({
         email: 'contato@andrebomalves.xyz',
-        password: '784512',
+        password: '784512 ',
         returnSecureToken: true
     })
 }

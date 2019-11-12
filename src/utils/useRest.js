@@ -7,6 +7,8 @@ const reducer = (state, action) => {
       return { ...state, loading: true };
     case 'SUCCESS':
       return { ...state, loading: false, data: action.data };
+    case 'ERROR':
+      return { ...state, loading: false, data: action.data, error: action.error };
     default:
       return state
   }
@@ -36,9 +38,15 @@ const Init = (url) => {
 
     const post = async(data) => {
       dispatch({ type: 'REQUESTS' })
+      try{
       const res = await axios.post(url + resource + sufix, data)
-      dispatch({ type: 'SUCCESS', data: res.data })
-      return res.data
+        dispatch({ type: 'SUCCESS', data: res.data })
+        return res.data
+      }
+      catch(e){
+        dispatch({ type: 'ERROR', data:{}, error: e.response.data.error.message })
+        return e.response.data
+      }
     }
     return [data, post]
   }
