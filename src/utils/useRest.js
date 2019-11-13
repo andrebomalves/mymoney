@@ -11,7 +11,7 @@ const reducer = (state, action) => {
       return { ...state, loading: false, data: action.data, error: action.error };
     default:
       return state
-  }
+  } 
 }
 
 
