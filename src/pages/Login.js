@@ -19,7 +19,7 @@ function Login() {
     
     await singin({
         email: 'contato@andrebomalves.xyz',
-        password: '784512 ',
+        password: '784512',
         returnSecureToken: true
     })
 }

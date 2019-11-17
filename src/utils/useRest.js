@@ -8,7 +8,7 @@ const reducer = (state, action) => {
     case 'SUCCESS':
       return { ...state, loading: false, data: action.data };
     case 'ERROR':
-      return { ...state, loading: false, data: action.data, error: action.error };
+      return { ...state, loading: false, data: action.data, error: action.error, code: action.code };
     default:
       return state
   } 
@@ -22,8 +22,15 @@ const Init = (url) => {
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
     const carregar = async() => {
       dispatch({ type: 'REQUEST' })
+      try{
       const res = await axios.get(url + resource +  sufix)
       dispatch({ type: 'SUCCESS', data: res.data })
+      }
+      catch(e){
+        console.log(e.response)
+        dispatch({ type: 'ERROR', data:{}, error: e.response.statusText, code:e.response.status })
+        return e.response.data
+      }
     }
     useEffect(() => {
       carregar()
@@ -44,7 +51,7 @@ const Init = (url) => {
         return res.data
       }
       catch(e){
-        dispatch({ type: 'ERROR', data:{}, error: e.response.data.error.message })
+        dispatch({ type: 'ERROR', data:{}, error: e.response.statusText, code:e.response.status })
         return e.response.data
       }
     }
@@ -62,10 +69,10 @@ const Init = (url) => {
     return [data,remove]
   }
 
-  const usePatch = () => {
+  const usePatch = (resource) => {
 
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
-    const patch = async(resource, data) => {
+    const patch = async(data) => {
       dispatch({ type: 'REQUEST' })
       const res = await axios.patch(url + resource + '.json',data)
       dispatch({ type: 'SUCCESS', data: res.data })

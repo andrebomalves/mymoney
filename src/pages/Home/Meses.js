@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Rest from '../../utils/useRest'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 const url = 'https://mymoney-andre.firebaseio.com/'
 const { useGet } = Rest(url)
@@ -8,9 +8,16 @@ const { useGet } = Rest(url)
 function Meses() {
   const data = useGet('meses')
 
+  useEffect(() => {
+    if((data.code && data.code === 401) || localStorage.getItem('token') ){
+      return window.location.pathname = 'Login'
+    }
+  }, [data.code]);
+
   if (data.loading) {
     return (<span>Carregando...</span>)
   }
+
   if (Object.keys(data.data).length > 0) {
     return (
       <table className='table'>
