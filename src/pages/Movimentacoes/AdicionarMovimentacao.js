@@ -12,18 +12,14 @@ function AdicionarMovimentacao(props) {
     })
   }
 
-
   const saveFormulario = async () => {
     const validaNumero = /[-]?\d+(\.)?\d+/
     if (!isNaN(formulario.valor) && formulario.valor.search(validaNumero) >= 0) {
-      await salvarNovaMovimentacao(formulario)
+
+      await props.salvarMov({descricao:formulario.descricao, valor:formulario.valor})
       setFormulario({ descricao: '', valor: 0 })
-      //await movimentacoes.refetch()
-      setTimeout(() => { }, 5000);
-      //await infoMes.refetch()
     }
   }
-
 
   return (
     <tr>

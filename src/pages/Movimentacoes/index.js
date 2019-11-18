@@ -8,28 +8,28 @@ function Movimentacoes(props) {
  
   const { movimentacoes, salvarNovaMovimentacao, removerMovimentacao } =  useMovimentacaoApi(props.match.params.data)
 
-
-  
-
   useEffect(() => {
     if((movimentacoes.code && movimentacoes.code === 401) || localStorage.getItem('token') ){
       return window.location.pathname = 'Login'
     }
   }, [movimentacoes.code]);
 
-
-
-
   const removeItem = async (chave) => {
     await removerMovimentacao(`movimentacoes/${props.match.params.data}/${chave}`)
     await movimentacoes.refetch()
   }
 
-
   if (movimentacoes.loading) {
     return <div className='d-flex justify-content-center'><span>Carregando...</span></div>
   }
 
+  const salvarMovimentacao = async(dados) => {
+    await salvarNovaMovimentacao({
+      ...dados
+    })
+    movimentacoes.refetch()
+
+  }
   //if (data.data && Object.keys(data.data).length >= 0) {
   return (
     <div className='container'>
@@ -69,7 +69,7 @@ function Movimentacoes(props) {
                 )
               })
           }
-          <AdicionarMovimentacao/>
+          <AdicionarMovimentacao salvarMov={salvarMovimentacao} />
         </tbody>
       </table>
     </div>
