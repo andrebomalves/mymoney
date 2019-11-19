@@ -14,6 +14,13 @@ const reducer = (state, action) => {
   } 
 }
 
+const getAuth = () =>{
+  const token = localStorage.getItem('token')
+  if(token){
+    return '?auth='+token
+  }
+  return ''
+}
 
 const Init = (url) => {
 
@@ -23,7 +30,7 @@ const Init = (url) => {
     const carregar = async() => {
       dispatch({ type: 'REQUEST' })
       try{
-      const res = await axios.get(url + resource +  sufix)
+      const res = await axios.get(url + resource +  sufix + getAuth())
       dispatch({ type: 'SUCCESS', data: res.data })
       }
       catch(e){
@@ -46,7 +53,8 @@ const Init = (url) => {
     const post = async(data) => {
       dispatch({ type: 'REQUESTS' })
       try{
-      const res = await axios.post(url + resource + sufix, data)
+        console.log(url, resource,sufix,getAuth())
+      const res = await axios.post(url + resource + sufix + getAuth(), data)
         dispatch({ type: 'SUCCESS', data: res.data })
         return res.data
       }
@@ -63,7 +71,7 @@ const Init = (url) => {
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
     const remove = async(resource) => {
       dispatch({ type: 'REQUEST' })
-      const res = await axios.delete(url + resource + '.json')
+      const res = await axios.delete(url + resource + '.json' + getAuth())
       dispatch({ type: 'SUCCESS', data: res.data })
     }
     return [data,remove]
@@ -74,7 +82,7 @@ const Init = (url) => {
     const [data, dispatch] = useReducer(reducer, { loading: true, data: {} })
     const patch = async(data) => {
       dispatch({ type: 'REQUEST' })
-      const res = await axios.patch(url + resource + '.json',data)
+      const res = await axios.patch(url + resource + '.json' + getAuth(),data)
       dispatch({ type: 'SUCCESS', data: res.data })
     }
     return [data,patch]

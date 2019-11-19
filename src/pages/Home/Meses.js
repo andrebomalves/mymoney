@@ -9,7 +9,7 @@ function Meses() {
   const data = useGet('meses')
 
   useEffect(() => {
-    if((data.code && data.code === 401) || localStorage.getItem('token') ){
+    if((data.code && data.code === 401) || !localStorage.getItem('token') ){
       return window.location.pathname = 'Login'
     }
   }, [data.code]);

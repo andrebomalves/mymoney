@@ -9,7 +9,7 @@ function Movimentacoes(props) {
   const { movimentacoes, salvarNovaMovimentacao, removerMovimentacao } =  useMovimentacaoApi(props.match.params.data)
 
   useEffect(() => {
-    if((movimentacoes.code && movimentacoes.code === 401) || localStorage.getItem('token') ){
+    if((movimentacoes.code && movimentacoes.code === 401) || !localStorage.getItem('token') ){
       return window.location.pathname = 'Login'
     }
   }, [movimentacoes.code]);
